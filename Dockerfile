@@ -1,7 +1,9 @@
 FROM php:8.2-apache
 
-# Install mysqli and pdo_mysql
-RUN docker-php-ext-install mysqli pdo pdo_mysql && \
+# Fix MPM conflict and install mysqli
+RUN a2dismod mpm_event mpm_worker && \
+    a2enmod mpm_prefork && \
+    docker-php-ext-install mysqli pdo pdo_mysql && \
     docker-php-ext-enable mysqli
 
 # Make Apache listen on port 8080
