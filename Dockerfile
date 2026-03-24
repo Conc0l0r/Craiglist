@@ -1,7 +1,8 @@
 FROM php:8.2-apache
 
-# Enable mysqli and pdo_mysql extensions
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+# Install mysqli and pdo_mysql
+RUN docker-php-ext-install mysqli pdo pdo_mysql && \
+    docker-php-ext-enable mysqli
 
 # Make Apache listen on port 8080
 RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf
