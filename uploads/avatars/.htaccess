@@ -1,0 +1,5 @@
+# Only allow image files to be served (no script execution)
+<FilesMatch "\.(php|phtml|php5)$">
+    Require all denied
+</FilesMatch>
+Options -Indexes

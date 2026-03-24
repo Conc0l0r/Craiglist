@@ -1,0 +1,23 @@
+# Enable rewrite engine
+RewriteEngine On
+
+# Allow access by default (Apache 2.4)
+<IfModule mod_authz_core.c>
+    Require all granted
+</IfModule>
+
+# Prevent directory listing
+Options -Indexes
+
+# Default document when requesting a directory
+DirectoryIndex index.php index.html
+
+# Protect config/database only (init_database.php must be reachable once to set up DB)
+<FilesMatch "^(config|database)">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+</FilesMatch>
+
+# Set default charset
+AddDefaultCharset UTF-8
